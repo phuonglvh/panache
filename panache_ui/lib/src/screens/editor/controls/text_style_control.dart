@@ -208,7 +208,7 @@ class TextStyleControlState extends State<TextStyleControl> {
             children: <Widget>[
               Text(
                 widget.label,
-                style: textTheme.title,
+                style: textTheme.headline6,
                 textAlign: TextAlign.left,
               ),
               IconButton(

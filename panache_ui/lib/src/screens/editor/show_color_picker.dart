@@ -30,7 +30,7 @@ Future<T> showColorPicker<T>(
       colorStream: colorStream,
       initialValue: initialValue,
       elevation: elevation,
-      theme: Theme.of(context, shadowThemeOnly: true),
+      theme: Theme.of(context),
     ),
   );
 }
@@ -281,7 +281,7 @@ class _PopupGridMenuItemState<T extends PopupGridMenuItem<Color>>
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    TextStyle style = theme.textTheme.subhead;
+    TextStyle style = theme.textTheme.subtitle1;
     if (!widget.enabled) style = style.copyWith(color: theme.disabledColor);
 
     return InkWell(
