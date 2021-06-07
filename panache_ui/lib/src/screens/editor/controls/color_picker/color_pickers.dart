@@ -46,6 +46,166 @@ Widget buildSlider<RGB>(
       onChanged: (newValue) => onChange(newValue),
     );
 
+class CustomePicker extends StatefulWidget {
+  final ColorCallback onColor;
+  final Color color;
+  final bool dynamicBackground;
+
+  const CustomePicker({
+    Key key,
+    @required this.color,
+    this.onColor,
+    this.dynamicBackground: true,
+  }) : super(key: key);
+
+  @override
+  _CustomePickerState createState() => _CustomePickerState(this.color);
+}
+
+class _CustomePickerState extends State<CustomePicker> {
+  Color _color;
+  TextEditingController _controller;
+  final _formKey = GlobalKey<FormState>();
+
+  _CustomePickerState(this._color) {
+    this._controller = TextEditingController(text: colorToHex32(this._color));
+  }
+
+  @override
+  initState() {
+    super.initState();
+    _updateColorComponents();
+  }
+
+  @override
+  dispose() {
+    this._controller.dispose();
+    super.dispose();
+  }
+
+  set color(Color color) {
+    _color = color;
+    widget.onColor(_color);
+  }
+
+  double _r = 0.0;
+
+  set r(double r) {
+    _r = r;
+    updateColor();
+  }
+
+  double _g = 0.0;
+
+  set g(double g) {
+    _g = g;
+    updateColor();
+  }
+
+  double _b = 0.0;
+
+  set b(double b) {
+    _b = b;
+    updateColor();
+  }
+
+  void _updateColorComponents() {
+    _r = _color.red.toDouble();
+    _g = _color.green.toDouble();
+    _b = _color.blue.toDouble();
+  }
+
+  void updateColor() {
+    setState(() {
+      color = Color(int.parse(_controller.text.replaceAll('#', '0xff')));
+    });
+    _updateColorComponents();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print('_CustomePickerState.build... $_color');
+    final hsl = HSLColor.fromColor(_color);
+    final shade50 = hsl.withLightness(.95).toColor();
+    final bgColor =
+        widget.dynamicBackground ? shade50.withOpacity(1) : Colors.white;
+    return Container(
+      color: bgColor,
+      padding: EdgeInsets.all(10.0),
+      margin: EdgeInsets.symmetric(vertical: 10.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            width: 300,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    cursorColor:
+                        Theme.of(context).textSelectionTheme.cursorColor,
+                    enabled: true,
+                    maxLength: 9,
+                    controller: _controller,
+                    enableSuggestions: true,
+                    enableInteractiveSelection: true,
+                    minLines: 1,
+                    autofocus: true,
+                    autofillHints: [
+                      colorToHex32(Colors.lightBlue),
+                      colorToHex32(Colors.blue)
+                    ],
+                    decoration: const InputDecoration(
+                        labelText:
+                            'Enter ARGB value and press enter, ie: #ff112233'),
+                    onEditingComplete: () {
+                      _formKey.currentState?.validate();
+                      updateColor();
+                    },
+                    validator: (String value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter some text';
+                      }
+                      if (value.length < 9) {
+                        return 'Value length is too short';
+                      }
+                      if (value.indexOf('#') != 0) {
+                        return 'Missing #';
+                      }
+                      if (!RegExp(r'^#[0-9a-fA-F]{8}$').hasMatch(value)) {
+                        return 'Please enter valid hex value or #';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            children: [
+              Text('R: ${_r}'),
+              SizedBox(
+                width: 5,
+              ),
+              Text('G: ${_g}'),
+              SizedBox(
+                width: 5,
+              ),
+              Text('B: ${_b}'),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class RGBPicker extends StatefulWidget {
   RGBPicker(
       {@required this.color,
@@ -372,7 +532,7 @@ class HSLSliderRow extends GradientSliderRow {
         children: [
           Text(
             '$label',
-            style: labelStyle ?? Theme.of(context).textTheme.body1,
+            style: labelStyle ?? Theme.of(context).textTheme.bodyText2,
             overflow: TextOverflow.ellipsis,
           ),
           sliderBuilder(
@@ -426,7 +586,7 @@ class RGBSliderRow extends GradientSliderRow<RGB> {
     List<Widget> elements = [
       Text(
         '$label : ${value.round()}',
-        style: labelStyle ?? Theme.of(context).textTheme.body1,
+        style: labelStyle ?? Theme.of(context).textTheme.bodyText2,
         overflow: TextOverflow.ellipsis,
       ),
       sliderBuilder(

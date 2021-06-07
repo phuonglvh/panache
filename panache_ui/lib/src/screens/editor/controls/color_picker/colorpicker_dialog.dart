@@ -41,7 +41,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
   @override
   void initState() {
     currentColor = widget.currentColor ?? Colors.blue;
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
     tabController.addListener(
         () => setState(() => currentTabIndex = tabController.index));
     super.initState();
@@ -91,6 +91,11 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
         color: currentColor,
       );
 
+  _buildCustomPicker() => CustomePicker(
+        onColor: (Color color) => setState(() => currentColor = color),
+        color: currentColor,
+      );
+
   _getPicker(int index, Orientation orientation) {
     switch (index) {
       case 0:
@@ -99,6 +104,8 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
         return _buildHSLPicker(orientation);
       case 2:
         return _buildMaterialPicker();
+      case 3:
+        return _buildCustomPicker();
       default:
         return _buildRGBPicker(orientation);
     }
@@ -113,6 +120,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
             Tab(text: 'RGB'),
             Tab(text: 'HSL'),
             Tab(text: 'Material'),
+            Tab(text: 'Custom'),
           ],
           controller: tabController,
           labelColor: Colors.blueGrey,
@@ -142,6 +150,7 @@ class _ColorPickerDialogState extends State<ColorPickerDialog>
             Tab(text: 'RGB'),
             Tab(text: 'HSL'),
             Tab(text: 'Material'),
+            Tab(text: 'Custom'),
           ],
           controller: tabController,
           labelColor: Colors.blueGrey,
@@ -293,7 +302,7 @@ class _ColorTextFieldState extends State<ColorTextField> {
         maxLines: 1,
         textAlign: TextAlign.center,
         controller: fieldController,
-        style: Theme.of(context).textTheme.body1.copyWith(fontSize: 12),
+        style: Theme.of(context).textTheme.bodyText2.copyWith(fontSize: 12),
         decoration: InputDecoration(
             prefixText: '#',
             counterText: '',
