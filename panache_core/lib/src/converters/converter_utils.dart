@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 String paddingToCode(EdgeInsets padding) {
   padding ??= EdgeInsets.zero;
   return 'EdgeInsets.only('
-      'top:${padding.top},'
-      'bottom:${padding.bottom},'
+      'top:${padding.top}, '
+      'bottom:${padding.bottom}, '
       'left:${padding.left}, '
-      'right:${padding.right}'
-      ')';
+      'right:${padding.right})';
 }
 
 Map<String, dynamic> paddingToMap(EdgeInsets padding) {
@@ -31,7 +30,7 @@ EdgeInsetsGeometry paddingFromMap(Map<String, dynamic> data) => EdgeInsets.only(
 
 String colorToCode(Color color) {
   if (color == null) return 'null';
-  return 'Color( 0x${color.value.toRadixString(16).padLeft(8, '0')} )';
+  return 'Color(0x${color.value.toRadixString(16).padLeft(8, '0')})';
 }
 
 String colorSchemeToCode(ColorScheme scheme) {
@@ -48,8 +47,7 @@ String colorSchemeToCode(ColorScheme scheme) {
         onSurface: ${colorToCode(scheme.onSurface)},
         onBackground: ${colorToCode(scheme.onBackground)},
         onError: ${colorToCode(scheme.onError)},
-        brightness: ${scheme.brightness},
-      )''';
+        brightness: ${scheme.brightness})''';
 }
 
 Map<String, dynamic> colorSchemeToMap(ColorScheme scheme) {
@@ -105,7 +103,7 @@ Map<String, dynamic> borderRadiusToMap(BorderRadiusGeometry radius) {
 }
 
 String borderSideToCode(BorderSide side) {
-  return 'BorderSide(color: ${colorToCode(side.color)}, width: ${side.width}, style: ${side.style}, )';
+  return 'BorderSide(color: ${colorToCode(side.color)}, width: ${side.width}, style: ${side.style})';
 }
 
 Map<String, dynamic> borderSideToMap(BorderSide side) {

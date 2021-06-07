@@ -7,8 +7,7 @@ String inputDecorationThemeToCode(InputDecorationTheme inputTheme,
     Color hintColor, TextStyle bodyStyle, Brightness brightness) {
   final defaultHintStyle = TextStyle(color: hintColor).merge(bodyStyle);
   final defaultBorder = inputTheme.border ?? UnderlineInputBorder();
-  return '''
-  InputDecorationTheme(
+  return '''InputDecorationTheme(
     labelStyle: ${textStyleToCode(inputTheme.labelStyle ?? defaultHintStyle)},
     helperStyle: ${textStyleToCode(inputTheme.helperStyle ?? defaultHintStyle)},
     hintStyle: ${textStyleToCode(inputTheme.hintStyle ?? defaultHintStyle)},
@@ -16,32 +15,19 @@ String inputDecorationThemeToCode(InputDecorationTheme inputTheme,
     errorMaxLines: ${inputTheme.errorMaxLines},
     hasFloatingPlaceholder: ${inputTheme.hasFloatingPlaceholder},
     isDense: ${inputTheme.isDense},
-    contentPadding: ${paddingToCode(
-    inputTheme.contentPadding ?? getDefaultContentPadding(inputTheme),
-  )},
+    contentPadding: ${paddingToCode(inputTheme.contentPadding ?? getDefaultContentPadding(inputTheme))},
     isCollapsed : ${inputTheme.isCollapsed},
     prefixStyle: ${textStyleToCode(inputTheme.prefixStyle ?? defaultHintStyle)},
     suffixStyle: ${textStyleToCode(inputTheme.suffixStyle ?? defaultHintStyle)},
-    counterStyle: ${textStyleToCode(
-    inputTheme.counterStyle ?? defaultHintStyle,
-  )},
+    counterStyle: ${textStyleToCode(inputTheme.counterStyle ?? defaultHintStyle)},
     filled: ${inputTheme.filled},
     fillColor: ${colorToCode(_getFillColor(inputTheme, brightness))},
     errorBorder: ${inputBorderToCode(inputTheme.errorBorder ?? defaultBorder)},
-    focusedBorder: ${inputBorderToCode(
-    inputTheme.focusedBorder ?? defaultBorder,
-  )},
-    focusedErrorBorder: ${inputBorderToCode(
-    inputTheme.focusedErrorBorder ?? defaultBorder,
-  )},
-    disabledBorder: ${inputBorderToCode(
-    inputTheme.disabledBorder ?? defaultBorder,
-  )},
-    enabledBorder: ${inputBorderToCode(
-    inputTheme.enabledBorder ?? defaultBorder,
-  )},
-    border: ${inputBorderToCode(defaultBorder)},
-  )''';
+    focusedBorder: ${inputBorderToCode(inputTheme.focusedBorder ?? defaultBorder)},
+    focusedErrorBorder: ${inputBorderToCode(inputTheme.focusedErrorBorder ?? defaultBorder)},
+    disabledBorder: ${inputBorderToCode(inputTheme.disabledBorder ?? defaultBorder)},
+    enabledBorder: ${inputBorderToCode(inputTheme.enabledBorder ?? defaultBorder)},
+    border: ${inputBorderToCode(defaultBorder)})''';
 }
 
 Color _getFillColor(InputDecorationTheme theme, Brightness brightness) {
@@ -66,15 +52,13 @@ String inputBorderToCode(InputBorder border) {
   if (border is UnderlineInputBorder) {
     return '''UnderlineInputBorder(
       borderSide: ${borderSideToCode(border.borderSide)},
-      borderRadius: BorderRadius.all(${border.borderRadius.topLeft}),
-    )''';
+      borderRadius: BorderRadius.all(${border.borderRadius.topLeft}))''';
   }
   if (border is OutlineInputBorder) {
     return '''OutlineInputBorder(
       borderSide: ${borderSideToCode(border.borderSide)},
       borderRadius: BorderRadius.all(${border.borderRadius.topLeft}),
-      gapPadding: ${border.gapPadding}
-    )''';
+      gapPadding: ${border.gapPadding})''';
   }
   if (border is InputBorder || border == null) {
     return '''InputBorder.none''';

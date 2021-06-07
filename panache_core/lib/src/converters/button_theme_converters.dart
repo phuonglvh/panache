@@ -24,21 +24,21 @@ String buttonThemeToCode(ButtonThemeData buttonTheme) {
   final hoverColor =
       colorToCode(buttonTheme.getHoverColor(enabledRaisedButton));
 
-  return '''ButtonThemeData(
+  final String buttonThemeCode = '''ButtonThemeData(
       textTheme: ${buttonTheme.textTheme},
       minWidth: ${buttonTheme.minWidth},
       height: ${buttonTheme.height},
       padding: ${paddingToCode(buttonTheme.padding)},
-      shape: ${buttonShapeToCode(buttonTheme.shape)} ,
-      alignedDropdown: ${buttonTheme.alignedDropdown} ,
+      shape: ${buttonShapeToCode(buttonTheme.shape)},
+      alignedDropdown: ${buttonTheme.alignedDropdown},
       buttonColor: $buttonColor,
       disabledColor: $disabledColor,
       highlightColor: $highlightColor,
       splashColor: $splashColor,
       focusColor: $focusColor,
       hoverColor: $hoverColor,
-      colorScheme: ${colorSchemeToCode(buttonTheme.colorScheme)},
-    )''';
+      colorScheme: ${colorSchemeToCode(buttonTheme.colorScheme)})''';
+  return buttonThemeCode;
 }
 
 Map<String, dynamic> buttonThemeToMap(ButtonThemeData buttonTheme) {
@@ -82,21 +82,15 @@ ButtonThemeData buttonThemeFromMap(Map<String, dynamic> data) {
 
 String buttonShapeToCode(ShapeBorder border) {
   if (border is RoundedRectangleBorder) {
-    return '''
-    RoundedRectangleBorder(
+    return '''RoundedRectangleBorder(
       side: ${borderSideToCode(border.side)},
-      borderRadius: BorderRadius.all(${(border.borderRadius as BorderRadius).topLeft}),
-    )
-''';
+      borderRadius: BorderRadius.all(${(border.borderRadius as BorderRadius).topLeft}))''';
   }
 
   if (border is BeveledRectangleBorder) {
-    return '''
-    BeveledRectangleBorder(
+    return '''BeveledRectangleBorder(
       side: ${borderSideToCode(border.side)},
-      borderRadius: BorderRadius.all(${(border.borderRadius as BorderRadius).topLeft}),
-    )
-''';
+      borderRadius: BorderRadius.all(${(border.borderRadius as BorderRadius).topLeft}))''';
   }
 
   if (border is StadiumBorder)

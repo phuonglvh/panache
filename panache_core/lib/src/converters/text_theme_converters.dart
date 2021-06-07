@@ -25,11 +25,10 @@ String textThemeToCode(TextTheme textTheme) {
 String textStyleToCode(TextStyle style) {
   assert(style != null);
   return '''TextStyle(
-      color: ${colorToCode(style.color)},
-      fontSize: ${style.fontSize},
-      fontWeight: ${style.fontWeight ?? FontWeight.normal},
-      fontStyle: ${style.fontStyle ?? FontStyle.normal},
-    )''';
+        color: ${colorToCode(style.color)},
+        fontSize: ${style.fontSize},
+        fontWeight: ${style.fontWeight ?? FontWeight.normal},
+        fontStyle: ${style.fontStyle ?? FontStyle.normal})''';
 
   /* TODO
         letterSpacing: ${style.letterSpacing},

@@ -17,9 +17,9 @@ final defaultDarkTheme =
     ThemeData.localize(ThemeData.dark(), Typography.englishLike2018);
 
 String themeToCode(ThemeData theme) {
-  return '''
-  import 'package:flutter/material.dart';
-  final ThemeData myTheme = ThemeData(
+  String code = '''
+import 'package:flutter/material.dart';
+final ThemeData myTheme = ThemeData(
     primarySwatch: ${materialSwatchCodeFor(color: theme.primaryColor)},
     brightness: ${theme.brightness},
     primaryColor: ${colorToCode(theme.primaryColor)},
@@ -41,9 +41,11 @@ String themeToCode(ThemeData theme) {
     buttonColor: ${colorToCode(theme.buttonColor)},
     toggleableActiveColor: ${colorToCode(theme.toggleableActiveColor)},
     secondaryHeaderColor: ${colorToCode(theme.secondaryHeaderColor)},
-    textSelectionColor: ${colorToCode(theme.textSelectionTheme.selectionColor)},
-    cursorColor: ${colorToCode(theme.textSelectionTheme.cursorColor)},
-    textSelectionHandleColor: ${colorToCode(theme.textSelectionTheme.selectionHandleColor)},
+    textSelectionTheme: TextSelectionThemeData(
+      selectionColor: ${colorToCode(theme.textSelectionTheme.selectionColor)},
+      cursorColor: ${colorToCode(theme.textSelectionTheme.cursorColor)},
+      selectionHandleColor: ${colorToCode(theme.textSelectionTheme.selectionHandleColor)},
+    ),
     backgroundColor: ${colorToCode(theme.backgroundColor)},
     dialogBackgroundColor: ${colorToCode(theme.dialogBackgroundColor)},
     indicatorColor: ${colorToCode(theme.indicatorColor)},
@@ -53,30 +55,16 @@ String themeToCode(ThemeData theme) {
     textTheme: ${textThemeToCode(theme.textTheme)},
     primaryTextTheme: ${textThemeToCode(theme.primaryTextTheme)},
     accentTextTheme: ${textThemeToCode(theme.accentTextTheme)},
-    inputDecorationTheme: ${inputDecorationThemeToCode(
-    theme.inputDecorationTheme,
-    theme.hintColor,
-    theme.textTheme.bodyText2,
-    theme.brightness,
-  )},
+    inputDecorationTheme: ${inputDecorationThemeToCode(theme.inputDecorationTheme, theme.hintColor, theme.textTheme.bodyText2, theme.brightness)},
     iconTheme: ${iconThemeToCode(theme.iconTheme)},
     primaryIconTheme: ${iconThemeToCode(theme.primaryIconTheme)},
     accentIconTheme: ${iconThemeToCode(theme.accentIconTheme)},
-    sliderTheme: ${sliderThemeToCode(
-    theme.sliderTheme,
-    theme.accentTextTheme.body2,
-  )},
-    tabBarTheme: ${tabBarThemeToCode(
-    theme.tabBarTheme,
-    defaultLabelColor: theme.primaryTextTheme.body2.color,
-  )},
-    chipTheme: ${chipThemeToCode(
-    theme.chipTheme,
-    defaultLabelStyle: theme.textTheme.body2,
-  )},
+    sliderTheme: ${sliderThemeToCode(theme.sliderTheme, theme.accentTextTheme.bodyText1)},
+    tabBarTheme: ${tabBarThemeToCode(theme.tabBarTheme, defaultLabelColor: theme.primaryTextTheme.bodyText1.color)},
+    chipTheme: ${chipThemeToCode(theme.chipTheme, defaultLabelStyle: theme.textTheme.bodyText1)},
     dialogTheme: ${dialogThemeToCode(theme.dialogTheme)},
-  );
-''';
+  );''';
+  return code;
 }
 /*
     TODO
@@ -247,7 +235,7 @@ int brightnessIndex(Brightness value) =>
 
 String sliderThemeToCode(
     SliderThemeData sliderTheme, TextStyle defaultValueIndicatorStyle) {
-  return '''SliderThemeData(
+  final String sliderThemeCode = '''SliderThemeData(
       activeTrackColor: ${colorToCode(sliderTheme.activeTrackColor)},
       inactiveTrackColor: ${colorToCode(sliderTheme.inactiveTrackColor)},
       disabledActiveTrackColor: ${colorToCode(sliderTheme.disabledActiveTrackColor)},
@@ -263,8 +251,8 @@ String sliderThemeToCode(
       valueIndicatorColor: ${colorToCode(sliderTheme.valueIndicatorColor)},
       valueIndicatorShape: ${instanceToCode(sliderTheme.valueIndicatorShape)},
       showValueIndicator: ${sliderTheme.showValueIndicator},
-      valueIndicatorTextStyle: ${textStyleToCode(defaultValueIndicatorStyle.merge(sliderTheme.valueIndicatorTextStyle))},
-    )''';
+      valueIndicatorTextStyle: ${textStyleToCode(defaultValueIndicatorStyle.merge(sliderTheme.valueIndicatorTextStyle))})''';
+  return sliderThemeCode;
 }
 
 Map<String, dynamic> sliderThemeToMap(
@@ -317,13 +305,13 @@ SliderThemeData sliderThemeFromMap(Map<String, dynamic> data) {
   );
 }
 
-String instanceToCode(dynamic instance) =>
-    '$instance()'.replaceAll('Instance of \'', '').replaceAll('\'', '');
+String instanceToCode(dynamic instance) => instance != null
+    ? '$instance()'.replaceAll('Instance of \'', '').replaceAll('\'', '')
+    : 'null';
 
 String dialogThemeToCode(DialogTheme iconTheme) {
   return '''DialogTheme(
-      shape: ${buttonShapeToCode(iconTheme.shape ?? RoundedRectangleBorder())}
-    )''';
+      shape: ${buttonShapeToCode(iconTheme.shape ?? RoundedRectangleBorder())})''';
 }
 
 Map<String, dynamic> dialogThemeToMap(DialogTheme iconTheme) =>
@@ -341,8 +329,7 @@ String tabBarThemeToCode(TabBarTheme tabBarTheme,
   return '''TabBarTheme(
       indicatorSize: ${tabBarTheme.indicatorSize ?? TabBarIndicatorSize.tab},
       labelColor: ${colorToCode(selectedColor)},
-      unselectedLabelColor: ${colorToCode(unselectedColor)},
-    )''';
+      unselectedLabelColor: ${colorToCode(unselectedColor)})''';
 }
 
 /// TODO indicator Decoration
@@ -378,19 +365,12 @@ String chipThemeToCode(ChipThemeData chipTheme,
       deleteIconColor: ${colorToCode(chipTheme.deleteIconColor)},
       disabledColor: ${colorToCode(chipTheme.disabledColor)},
       labelPadding: ${paddingToCode(chipTheme.labelPadding)},
-      labelStyle: ${textStyleToCode(
-    defaultLabelStyle.merge(chipTheme.labelStyle),
-  )},
+      labelStyle: ${textStyleToCode(defaultLabelStyle.merge(chipTheme.labelStyle))},
       padding: ${paddingToCode(chipTheme.padding)},
-      secondaryLabelStyle: ${textStyleToCode(
-    defaultLabelStyle.merge(
-      chipTheme.labelStyle.copyWith(color: chipTheme.selectedColor),
-    ),
-  )},
+      secondaryLabelStyle: ${textStyleToCode(defaultLabelStyle.merge(chipTheme.labelStyle.copyWith(color: chipTheme.selectedColor)))},
       secondarySelectedColor: ${colorToCode(chipTheme.secondarySelectedColor)},
       selectedColor: ${colorToCode(chipTheme.selectedColor)},
-      shape: ${buttonShapeToCode(chipTheme.shape)},
-    )''';
+      shape: ${buttonShapeToCode(chipTheme.shape)})''';
 }
 
 Map<String, dynamic> chipThemeToMap(ChipThemeData chipTheme,

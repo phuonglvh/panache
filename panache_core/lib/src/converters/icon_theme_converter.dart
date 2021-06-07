@@ -7,8 +7,7 @@ String iconThemeToCode(IconThemeData theme) {
   return '''IconThemeData(
       color: ${colorToCode(iconTheme.color)},
       opacity: ${iconTheme.opacity},
-      size: ${iconTheme.size},
-    )''';
+      size: ${iconTheme.size})''';
 }
 
 Map<String, dynamic> iconThemeToMap(IconThemeData theme) {
