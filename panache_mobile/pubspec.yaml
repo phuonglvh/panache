@@ -4,15 +4,18 @@ version: 0.2.2
 author: Erick Ghaumez <erick@rxla.bz>
 homepage: https://github.com/rxlabz/panache
 
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  
 dependencies:
   flutter:
     sdk: flutter
 
   scoped_model: ^1.0.1
   string_scanner: any
-  google_sign_in: ^3.2.4
-  googleapis: ^0.52.0+1
-  shared_preferences: ^0.5.3
+  google_sign_in: ^5.0.4
+  googleapis: ^3.0.0
+  shared_preferences: ^2.0.6
 
   panache_core:
     path: ../panache_core

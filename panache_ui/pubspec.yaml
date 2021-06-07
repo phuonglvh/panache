@@ -5,7 +5,7 @@ author:
 homepage:
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -14,7 +14,8 @@ dependencies:
   panache_core:
     path: ../panache_core
 
-  provider: ^3.1.0
+  provider: ^5.0.0
+  string_validator: ^0.3.0
 
   #panache_services:
     #path: ../panache_services

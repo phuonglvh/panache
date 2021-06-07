@@ -5,6 +5,9 @@ version: 0.2.2
 author: Erick Ghaumez <erick@rxla.bz>
 homepage: https://github.com/rxlabz/panache
 
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
 dependencies:
   flutter:
     sdk: flutter
@@ -12,11 +15,11 @@ dependencies:
   scoped_model: ^1.0.1
   string_scanner: any
 
-  shared_preferences: ^0.5.3
+  shared_preferences: ^2.0.6
   shared_preferences_fde:
     path: ../desktop_plugins/shared_preferences_fde
 
-  path_provider: ^1.3.0
+  path_provider: ^2.0.2
   path_provider_fde:
     path: ../desktop_plugins/path_provider_fde
 

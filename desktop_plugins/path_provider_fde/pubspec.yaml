@@ -3,6 +3,7 @@ description: Temporary desktop implmentations of path_provider from flutter/plug
 version: 0.0.1
 author: Flutter Desktop Embedding Developers <flutter-desktop-embedding-dev@googlegroups.com>
 homepage: https://github.com/google/flutter-desktop-embedding/tree/master/plugins/flutter_plugins/path_provider_fde
+publish_to: "none"
 
 flutter:
   plugin:
@@ -11,7 +12,7 @@ flutter:
         pluginClass: PathProviderPlugin
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:

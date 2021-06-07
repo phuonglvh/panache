@@ -3,18 +3,18 @@ description: panache for the web
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.2<3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   scoped_model: ^1.0.1
-  provider: ^3.1.0
 
   js: any
 
