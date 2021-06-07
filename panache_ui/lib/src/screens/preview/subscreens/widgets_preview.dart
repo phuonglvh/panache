@@ -15,7 +15,7 @@ class ButtonPreview extends StatelessWidget {
         children: [
           Text(
             'RaisedButton',
-            style: theme.textTheme.subhead,
+            style: theme.textTheme.subtitle1,
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -71,7 +71,7 @@ class ButtonPreview extends StatelessWidget {
               Expanded(
                 child: Text(
                   'IconButton',
-                  style: theme.textTheme.subhead,
+                  style: theme.textTheme.subtitle1,
                 ),
               ),
               IconButton(
@@ -100,7 +100,7 @@ class ButtonPreview extends StatelessWidget {
             ],
           ),
           Divider(),
-          Text('FlatButton', style: theme.textTheme.subhead),
+          Text('FlatButton', style: theme.textTheme.subtitle1),
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
             child: Wrap(

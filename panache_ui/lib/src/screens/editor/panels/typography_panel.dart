@@ -25,19 +25,19 @@ class TypographyThemePanel extends StatelessWidget {
       );
 
   List<Widget> _buildTextThemeEditorFields(ThemeModel model) {
-    final headline = txtTheme.headline;
-    final title = txtTheme.title;
-    final subhead = txtTheme.subhead;
-    final subtitle = txtTheme.subtitle;
-    final body1 = txtTheme.body1;
-    final body2 = txtTheme.body2;
+    final headline = txtTheme.headline5;
+    final title = txtTheme.headline6;
+    final subhead = txtTheme.subtitle1;
+    final subtitle = txtTheme.subtitle2;
+    final body1 = txtTheme.bodyText2;
+    final body2 = txtTheme.bodyText2;
     final caption = txtTheme.caption;
     final overline = txtTheme.overline;
     final button = txtTheme.button;
-    final display1 = txtTheme.display1;
-    final display2 = txtTheme.display2;
-    final display3 = txtTheme.display3;
-    final display4 = txtTheme.display4;
+    final display1 = txtTheme.headline4;
+    final display2 = txtTheme.headline3;
+    final display3 = txtTheme.headline2;
+    final display4 = txtTheme.headline1;
 
     final styleNames = [
       TextStyleControlData(styleName: 'headline', style: headline),

@@ -40,7 +40,7 @@ class NewThemePanel extends StatelessWidget {
       padding: EdgeInsets.only(
           bottom: isMobileInLandscape ? 0 : 16,
           right: isMobileInLandscape ? 16 : 0),
-      child: Text('New theme', style: textTheme.title),
+      child: Text('New theme', style: textTheme.headline6),
     );
     final btCreate = Padding(
       padding: EdgeInsets.only(top: isMobileInLandscape ? 2 : 16.0),

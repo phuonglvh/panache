@@ -93,7 +93,7 @@ class SliderThemePanel extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Show value indicator',
-                style: textTheme.subtitle,
+                style: textTheme.subtitle2,
               ),
               DropdownButton(
                   style: textTheme.body2,

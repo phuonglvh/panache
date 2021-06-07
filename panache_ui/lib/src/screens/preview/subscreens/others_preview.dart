@@ -80,7 +80,7 @@ class OthersPreview extends StatelessWidget {
                 height: 420.0,
                 child: Text(
                   'a simple dialog',
-                  style: theme.textTheme.headline,
+                  style: theme.textTheme.headline5,
                 ),
               ),
             ),
